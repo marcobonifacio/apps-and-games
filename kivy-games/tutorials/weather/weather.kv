@@ -1,4 +1,16 @@
-AddLocationForm:
+WeatherRoot:
+
+<WeatherRoot>:
+    AddLocationForm
+
+<SelectableLabel>:
+    # Draw a background to indicate selection
+    canvas.before:
+        Color:
+            rgba: (0, 0.3, 0.3, 1) if self.selected else (0, 0, 0, 0)
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
 <AddLocationForm>:
     orientation: "vertical"
@@ -20,10 +32,12 @@ AddLocationForm:
     RecycleView:
         id: search_results_list
         data: []
-        viewclass: 'Label'
-        RecycleBoxLayout:
+        viewclass: 'SelectableLabel'
+        SelectableRecycleBoxLayout:
             default_size: None, dp(20)
             default_size_hint: 1, None
             size_hint_y: None
             height: self.minimum_height
             orientation: 'vertical'
+            multiselect: True
+            touch_multiselect: True
