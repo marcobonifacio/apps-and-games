@@ -1,2 +1,2 @@
-# apps-and-games
-A repository of apps and games (WIP)
+# zibaldone
+A miscellaneous repository
