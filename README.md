@@ -1,2 +1,2 @@
 # zibaldone
-A miscellaneous repository
+A miscellaneous repository.
