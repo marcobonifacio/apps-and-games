@@ -1,12 +1,6 @@
 import collections
 import justpy as jp
 
-title_classes = 'my-2 text-lg font-bold text-gray-700'
-label_classes = 'my-2 font-semibold text-blue-700'
-input_classes = 'bg-gray-200 border-2 border-gray-200 rounded w-64 py-2 px-4 \
-    focus:outline-none focus:bg-white focus:border-blue-700'
-text_classes = 'my-2'
-
 
 def check_anagram(str1, str2):
     d = collections.Counter(''.join(sorted(str1.lower().strip()))) - \
@@ -14,71 +8,84 @@ def check_anagram(str1, str2):
     return ''.join(d.elements())
 
 
-def do_check(self, mgs):
+def do_check_a(self, mgs):
     self.div1.text = check_anagram(self.value, self.oth.value)
     self.div2.text = check_anagram(self.oth.value, self.value)
+    self.oth.placeholder = 'Then, enter something here'
 
 
-def show_form():
-    wp = jp.WebPage()
-    d_outer = jp.Div(
-        a=wp, 
-        classes='m-2 p-4'
+def do_check_b(self, mgs):
+    self.div1.text = check_anagram(self.value, self.oth.value)
+    self.div2.text = check_anagram(self.oth.value, self.value)
+    
+
+def page():
+    wp = jp.QuasarPage(dark=True)
+    title = jp.Div(
+        text='Check anagrams',
+        a=wp,
+        classes='q-pa-xl text-h2 text-center text-primary'
         )
-    d_title = jp.Div(
-        text='Controlla anagrammi', 
-        a=d_outer, 
-        classes=title_classes
+    label_row = jp.Div(
+        a=wp,
+        classes='q-px-xl q-py-sm q-gutter-xl row'
         )
-    d_lab_orig = jp.Div(
-        text='Frase da anagrammare', 
-        a=d_outer, 
-        classes=label_classes
+    label_a = jp.Div(
+        text='Original sentence',
+        a=label_row,
+        classes='col text-primary'
         )
-    in_orig = jp.Textarea(
-        a=d_outer, 
-        rows=3, 
-        input=do_check, 
-        classes=input_classes
+    label_b = jp.Div(
+        text='Check anagram',
+        a=label_row,
+        classes='col text-primary'
         )
-    d_lab_anag = jp.Div(
-        text='Frase anagrammata', 
-        a=d_outer, 
-        classes=label_classes
+    input_row = jp.Div(
+        a=wp,
+        classes='q-px-xl q-py-sm q-gutter-xl row'
         )
-    in_anag = jp.Textarea(
-        a=d_outer, 
-        rows=3, 
-        input=do_check, 
-        classes=input_classes
+    input_a = jp.QInput(
+        a=input_row,
+        placeholder='Enter something here, first',
+        input=do_check_a, 
+        classes='col'
         )
-    d_lab_miss = jp.Div(
-        text='Lettere mancanti', 
-        a=d_outer, 
-        classes=label_classes
+    input_b = jp.QInput(
+        a=input_row,
+        input=do_check_b, 
+        classes='col'
         )
-    d_miss = jp.Div(
-        text='', 
-        a=d_outer, 
-        classes=text_classes
+    letters_row = jp.Div(
+        a=wp,
+        classes='q-px-xl q-py-lg q-gutter-xl row'
         )
-    d_lab_exc = jp.Div(
-        text='Lettere eccedenti', 
-        a=d_outer, 
-        classes=label_classes
+    label_missing = jp.Div(
+        text='Missing letters',
+        a=letters_row,
+        classes='col text-primary'
         )
-    d_exc = jp.Div(
-        text='', 
-        a=d_outer, 
-        classes=text_classes
+    missing = jp.Div(
+        text='',
+        a=letters_row,
+        classes='col-4'
         )
-    in_orig.div1 = d_miss
-    in_orig.div2 = d_exc
-    in_orig.oth = in_anag
-    in_anag.div1 = d_exc
-    in_anag.div2 = d_miss
-    in_anag.oth = in_orig
+    label_exceeding = jp.Div(
+        text='Exceeding letters',
+        a=letters_row,
+        classes='col text-primary'
+        )
+    exceeding = jp.Div(
+        text='',
+        a=letters_row,
+        classes='col-4'
+        )
+    input_a.div1 = missing
+    input_a.div2 = exceeding
+    input_a.oth = input_b
+    input_b.div1 = exceeding
+    input_b.div2 = missing
+    input_b.oth = input_a
     return wp
 
 
-jp.justpy(show_form)
+jp.justpy(page)
