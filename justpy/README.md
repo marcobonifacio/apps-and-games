@@ -1,4 +1,4 @@
-# Using justpy[https://justpy.io]
+# Using [justpy](https://justpy.io)
 A bunch of scripts made with justpy.
 
 ## Anagrams
