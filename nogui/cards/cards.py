@@ -17,7 +17,13 @@ class Card:
 class Deck:
     
     ranks = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
-    suits = ('\u2665', '\u2666', '\u2663', '\u2660')
+    suits = (
+        '\N{BLACK HEART SUIT}', 
+        '\N{BLACK DIAMOND SUIT}',
+        '\N{BLACK CLUB SUIT}',
+        '\N{BLACK SPADE SUIT}'
+        )
+    #suits = ('\u2665', '\u2666', '\u2663', '\u2660')
     
     def __init__(self, cards=None):
         if cards is None:
