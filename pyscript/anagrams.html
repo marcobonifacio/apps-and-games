@@ -14,27 +14,31 @@
     </py-env>
 
     <py-script>
+    
 import collections
+
+orig_out = Element("orig_out")
+anag_out = Element("anag_out")
+
 def check_anagram(str1, str2):
     d = (collections.Counter(''.join(sorted(str1.lower().strip()))) - 
     collections.Counter(''.join(sorted(str2.lower().strip()))))
     return ''.join(d.elements())
 
-def do_check_original(self, mgs):
-    orig_label.text = check_anagram(original.value, anagram.value)
-    anag_label.text = check_anagram(anagram.value, original.value)
+def do_check_original(*args, **kwargs):
+    orig_out.write(check_anagram(original.value, anagram.value))
+    anag_out.write(check_anagram(anagram.value, original.value))
 
-def do_check_anagram(self, mgs):
-    orig_label.text = check_anagram(anagram.value, original.value)
-    anag_label.text = check_anagram(original.value, anagram.value)
-
+def do_check_anagram(*args, **kwargs):
+    orig_out.write(check_anagram(anagram.value, original.value))
+    anag_out.write(check_anagram(original.value, anagram.value))
 
     </py-script>
   </head>
 
   <body>
       <py-title>Anagrams</py-title>
-      <py-box widths="1/2;1/2">
+      <py-box widths="1/4;1/4;1/4;1/4">
         <py-inputbox id="original">
 def on_keypress(e):
     if (e.code == "Enter"):
@@ -45,10 +49,10 @@ def on_keypress(e):
     if (e.code == "Enter"):
         do_check_anagram()
         </py-inputbox>
-        <label id="orig_label">
-        </label>
-        <label id="anag_label">
-        </label>
+        <div id="orig_out">
+        </div>
+        <div id="anag_out">
+        </div>
       </py-box>
 
   </body>

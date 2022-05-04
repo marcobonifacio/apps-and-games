@@ -9,11 +9,11 @@
     
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     
-     <py-register-widget src="/pyitem.py" name="py-item" klass="PyItem"></py-register-widget>
-    
     <py-script>
+output = Element("output")
+    
 def callback(*args, **kwargs):
-    copy.text = original.value
+    output.write(original.value)
     original.clear()
 
     </py-script>
@@ -27,7 +27,7 @@ def on_keypress(e):
     if e.code == 'Enter':
         callback()
         </py-inputbox>
-        <py-item id="copy"></py-item>
+        <div id="output"></div>
       </py-box>
 
   </body>
