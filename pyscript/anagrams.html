@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Anagrams</title>
+
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    
+    <py-env>
+    - collections
+    </py-env>
+
+    <py-script>
+import collections
+def check_anagram(str1, str2):
+    d = (collections.Counter(''.join(sorted(str1.lower().strip()))) - 
+    collections.Counter(''.join(sorted(str2.lower().strip()))))
+    return ''.join(d.elements())
+
+def do_check_original(self, mgs):
+    orig_label.text = check_anagram(original.value, anagram.value)
+    anag_label.text = check_anagram(anagram.value, original.value)
+
+def do_check_anagram(self, mgs):
+    orig_label.text = check_anagram(anagram.value, original.value)
+    anag_label.text = check_anagram(original.value, anagram.value)
+
+
+    </py-script>
+  </head>
+
+  <body>
+      <py-title>Anagrams</py-title>
+      <py-box widths="1/2;1/2">
+        <py-inputbox id="original">
+def on_keypress(e):
+    if (e.code == "Enter"):
+        do_check_original()
+        </py-inputbox>
+        <py-inputbox id="anagram">
+def on_keypress(e):
+    if (e.code == "Enter"):
+        do_check_anagram()
+        </py-inputbox>
+        <label id="orig_label">
+        </label>
+        <label id="anag_label">
+        </label>
+      </py-box>
+
+  </body>
+</html>
+

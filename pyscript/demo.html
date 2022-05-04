@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Demo</title>
+
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    
+     <py-register-widget src="/pyitem.py" name="py-item" klass="PyItem"></py-register-widget>
+    
+    <py-script>
+def callback(*args, **kwargs):
+    copy.text = original.value
+    original.clear()
+
+    </py-script>
+  </head>
+
+  <body>
+      <py-title>Demo</py-title>
+      <py-box widths="1/2;1/2">
+        <py-inputbox id="original">
+def on_keypress(e):
+    if e.code == 'Enter':
+        callback()
+        </py-inputbox>
+        <py-item id="copy"></py-item>
+      </py-box>
+
+  </body>
+</html>
+
