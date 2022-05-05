@@ -19,12 +19,6 @@ textinput = Element("textinput")
 def callback(*args, **kwargs):
     output.write(textinput.value)
     textinput.clear()
-
-def callback2(*args, **kwargs):
-    if args[1].code == "Enter":
-        output.write(textinput.value)
-        textinput.clear()
-
     </py-script>
   </head>
 
@@ -33,7 +27,7 @@ def callback2(*args, **kwargs):
       <h1 class="display-2">Demo</h1>
       <div class="row">
         <div class="col">
-          <input class="form-control" id="textinput" pys-onKeyDown="callback2"> <!-- How does it work? -->
+          <input class="form-control" id="textinput"> <!-- TO DO: pys-onKeyDown -->
         </div>
         <div class="col">
           <button class="btn btn-primary" id="do-things" pys-onClick="callback">Press me!</button>

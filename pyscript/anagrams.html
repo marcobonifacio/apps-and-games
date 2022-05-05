@@ -6,8 +6,10 @@
     <title>Anagrams</title>
 
     <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     
     <py-script>
     
@@ -33,24 +35,41 @@ def do_check_anagram(*args, **kwargs):
   </head>
 
   <body>
-      <py-title>Anagrams</py-title>
-      <py-box widths="1/4;1/4;1/4;1/4">
-        <py-inputbox id="original">
+    <div class="container">
+      <h1 class="display-2">Anagrams</h1>
+      <div class="row">
+        <div class="col">
+          <label for="original">Original sentence </label>
+          <py-inputbox id="original">
 def on_keypress(e):
     if (e.code == "Enter"):
         do_check_original()
-        </py-inputbox>
-        <py-inputbox id="anagram">
+          </py-inputbox>
+        </div>
+        <div class="col">
+          <label for="anagram">Anagrammed sentence </label>
+          <py-inputbox id="anagram">
 def on_keypress(e):
     if (e.code == "Enter"):
         do_check_anagram()
-        </py-inputbox>
-        <div id="orig_out">
+          </py-inputbox>
         </div>
-        <div id="anag_out">
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="my-4">Missing letters:</div>
         </div>
-      </py-box>
-
+        <div class="col-4">
+          <div class="my-4" id="orig_out"></div>
+        </div>
+        <div class="col">
+          <div class="my-4">Exceeding letters:</div>
+        </div>
+         <div class="col-4">
+          <div class="my-4" id="anag_out"></div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
 
