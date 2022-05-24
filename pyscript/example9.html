@@ -1,0 +1,30 @@
+<!-- https://www.jhanley.com/pyscript-javascript-and-python-interoperability/ -->
+
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <title>Example 9</title>
+  <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+
+<body>
+<py-script>
+import js
+ 
+result = js.get_object().to_py()
+for r in result:
+        print(r)
+</py-script>
+ 
+<script type="text/javascript">
+function get_object() {
+        return {
+                "a": 4,
+                "b": "4"
+        };
+}
+</script>
+</body>
+</html>

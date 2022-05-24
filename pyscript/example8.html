@@ -1,0 +1,23 @@
+<!-- https://www.jhanley.com/pyscript-javascript-and-python-interoperability/ -->
+
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <title>Example 8</title>
+  <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+
+<body>
+<py-script>
+import js
+import asyncio
+ 
+url = "https://api.ipify.org"
+ 
+result = await (await js.fetch(url)).text()
+print('My Public IP: {}'.format(result))
+</py-script>
+</body>
+</html>

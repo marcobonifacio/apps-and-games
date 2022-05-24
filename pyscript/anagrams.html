@@ -10,49 +10,20 @@
     
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    
-    <py-script>
-    
-import collections
-
-orig_out = Element("orig_out")
-anag_out = Element("anag_out")
-
-def check_anagram(str1, str2):
-    d = (collections.Counter(''.join(sorted(str1.lower().strip()))) - 
-    collections.Counter(''.join(sorted(str2.lower().strip()))))
-    return ''.join(d.elements())
-
-def do_check_original(*args, **kwargs):
-    orig_out.write(check_anagram(original.value, anagram.value))
-    anag_out.write(check_anagram(anagram.value, original.value))
-
-def do_check_anagram(*args, **kwargs):
-    orig_out.write(check_anagram(anagram.value, original.value))
-    anag_out.write(check_anagram(original.value, anagram.value))
-
-    </py-script>
   </head>
 
   <body>
     <div class="container">
       <h1 class="display-2">Anagrams</h1>
+      <p>Write something in the forms, then press 'Enter' to check the anagram.</p>
       <div class="row">
         <div class="col">
           <label for="original">Original sentence </label>
-          <py-inputbox id="original">
-def on_keypress(e):
-    if (e.code == "Enter"):
-        do_check_original()
-          </py-inputbox>
+          <input type="text" class="form-control" id="original"></input>
         </div>
         <div class="col">
           <label for="anagram">Anagrammed sentence </label>
-          <py-inputbox id="anagram">
-def on_keypress(e):
-    if (e.code == "Enter"):
-        do_check_anagram()
-          </py-inputbox>
+          <input type="text" class="form-control" id="anagram"></input>
         </div>
       </div>
       <div class="row">
@@ -63,13 +34,48 @@ def on_keypress(e):
           <div class="my-4" id="orig_out"></div>
         </div>
         <div class="col">
-          <div class="my-4">Exceeding letters:</div>
+          <div class="my-4">Missing letters:</div>
         </div>
          <div class="col-4">
           <div class="my-4" id="anag_out"></div>
         </div>
       </div>
     </div>
+    <py-script>  
+  
+import collections
+from js import document
+from pyodide import create_proxy
+
+original = document.getElementById("original")
+anagram = document.getElementById("anagram")
+orig_out = document.getElementById("orig_out")
+anag_out = document.getElementById("anag_out")
+
+def check_anagram(str1, str2):
+    d = (collections.Counter(''.join(sorted(str1.lower().strip()))) - 
+    collections.Counter(''.join(sorted(str2.lower().strip()))))
+    return ''.join(d.elements())
+
+def do_check_original(event):
+    if event.code == "Enter":
+        orig_out.innerHTML = check_anagram(original.value, anagram.value)
+        anag_out.innerHTML = check_anagram(anagram.value, original.value)
+
+def do_check_anagram(event):
+    if event.code == "Enter":
+        orig_out.innerHTML = check_anagram(anagram.value, original.value)
+        anag_out.innerHTML = check_anagram(original.value, anagram.value)
+
+def main():
+    orig_proxy = create_proxy(do_check_original)
+    anag_proxy = create_proxy(do_check_anagram)
+    original.addEventListener("keydown", orig_proxy)
+    anagram.addEventListener("keydown", anag_proxy)
+
+main()
+
+    </py-script>
   </body>
 </html>
 

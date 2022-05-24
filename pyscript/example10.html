@@ -1,0 +1,32 @@
+<!-- https://www.jhanley.com/pyscript-javascript-and-python-interoperability/ -->
+
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <title>Example 10</title>
+  <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+
+<body>
+<py-script>
+import js
+ 
+obj = {
+        "a": 4,
+        "b": "8"
+}
+ 
+js.put_object(obj)
+</py-script>
+ 
+<script type="text/javascript">
+function put_object(obj) {
+        // obj is a Proxy
+        console.log("a = " + obj.get("a"));
+        console.log("b = " + obj.get("b"));
+}
+</script>
+</body>
+</html>

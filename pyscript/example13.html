@@ -1,0 +1,32 @@
+<!-- https://www.jhanley.com/pyscript-page-load-time/ -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pyscript Load TimePy</title>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+  </head>
+  <body>
+    <h4>Example program measuring Pyscript load time</h4>
+    <div id="msg">Loading page ...</div>
+    <br>
+    <py-script>
+import time
+import js
+from js import document
+ 
+def main():
+  now = time.time_ns() / 1000000
+  start = js.start_time
+  delta = (now - start) / 1000
+ 
+  document.getElementById("msg").innerHTML = 'Total start time: ' + str(delta) + ' seconds'
+ 
+main()
+    </py-script>
+    <script type="text/javascript">
+      var start_time = (new Date()).getTime();
+    </script>
+  </body>
+</html>

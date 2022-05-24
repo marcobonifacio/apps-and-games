@@ -1,0 +1,28 @@
+<!-- https://www.jhanley.com/pyscript-loading-python-code-in-the-browser/ -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.20.0/full/pyodide.js"></script>
+  </head>
+  <body>
+  <div id="msg">Loading page ...</div>
+  <br>
+    <script type="text/javascript">
+        async function load_code_from_url(url) {
+                let response = await fetch(url, {redirect: "follow"});
+                let data = await response.text();
+                return data;
+        }
+ 
+        async function main() {
+                let pyodide = await loadPyodide();
+                let url = 'example2.py';
+                let pycode = await load_code_from_url(url);
+                pyodide.runPython(pycode);
+        }
+ 
+      main();
+    </script>
+  </body>
+</html>

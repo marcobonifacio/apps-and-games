@@ -1,0 +1,27 @@
+<!-- https://www.jhanley.com/pyscript-javascript-and-python-interoperability/ -->
+
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <title>Example 7</title>
+  <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+ 
+<body>
+<py-script>
+import js
+import asyncio
+ 
+result = await js.square(4)
+print(result)
+</py-script>
+ 
+<script type="text/javascript">
+async function square(number) {
+        return number * number;
+}
+</script>
+</body>
+</html>

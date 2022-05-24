@@ -1,0 +1,49 @@
+<!-- https://www.jhanley.com/pyscript-page-load-time/ -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pyodide Load Time</title>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.20.0/full/pyodide.js"></script>
+  </head>
+  <body>
+    <h4>Example program measuring Pyodide load time</h4>
+    <div id="msg">Loading page ...</div>
+    <br>
+ 
+    <jhanley-python>
+import time
+import js
+from js import document
+ 
+def pymain():
+  now = time.time_ns() / 1000000
+  start = js.start_time
+  delta = (now - start) / 1000
+ 
+  document.getElementById("msg").innerHTML = 'Total start time: ' + str(delta) + ' seconds'
+ 
+    </jhanley-python>
+    <script type="text/javascript">
+      async function main() {
+        // Hide the tag contents
+        var tag = document.getElementsByTagName('jhanley-python');
+        tag[0].style.display = "none";
+ 
+        let pycode = tag[0].innerHTML;
+ 
+        let pyodide = await loadPyodide();
+ 
+        pyodide.runPython(pycode);
+ 
+        // Call the Python main() function
+        pyodide.globals.get("pymain")()
+      }
+ 
+      var start_time = (new Date()).getTime();
+ 
+      main();
+ 
+    </script>
+  </body>
+</html>

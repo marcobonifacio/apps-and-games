@@ -1,0 +1,45 @@
+<!-- https://www.jhanley.com/pyscript-files-and-file-systems-part-1/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>File System Examples</title>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+  </head>
+  <body>
+    <py-script>
+import os
+ 
+print('Current Working Directory:')
+print(os.getcwd())
+
+print('Root directory contents:')
+files = os.listdir('/')
+for file in files:
+    print(file)
+
+print('/dev directory contents:')
+files = os.listdir('/dev')
+for file in files:
+    print(file)
+        
+print('Create a file, read the file and print the contents:')
+f = open('testfile.txt', 'w')
+f.write('Hello PyScript World')
+f.close()
+f = open('testfile.txt', 'r')
+print(f.read())
+f.close()
+
+print('Create a file, read the file and print the contents:')
+with open('testfile.txt', 'w') as f:
+    f.write('Hello PyScript World')
+with open('testfile.txt', 'r') as f:
+    print(f.read())
+    </py-script>
+  </body>
+</html>

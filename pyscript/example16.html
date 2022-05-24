@@ -1,0 +1,30 @@
+<!-- https://www.jhanley.com/pyscript-create-the-py-script-tag-at-runtime/ -->
+
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <title>PyScript Tag Create Example</title>
+  <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+ 
+<body>
+  <div id="status">Loading page ...</div>
+ 
+  <script src="/exec_py.js"></script>
+<script>
+ 
+// pycode contains the Python program
+var pycode = `
+from datetime import datetime
+from js import document
+document.getElementById("status").innerHTML = 'Python loaded and running ...'
+print(datetime.now())
+`;
+ 
+// Load the code into a py-script tag and then execute
+run_python(pycode);
+</script>
+</body>
+</html>

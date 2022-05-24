@@ -1,0 +1,33 @@
+<!-- https://www.jhanley.com/pyscript-javascript-and-python-interoperability/ -->
+
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <title>Example 11</title>
+  <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+
+<body>
+<py-script>
+import js
+from pyodide import to_js
+obj = {
+        "a": 4,
+        "b": "8"
+}
+ 
+js.put_object(to_js(obj))
+</py-script>
+ 
+<script type="text/javascript">
+function put_object(obj) {
+        // obj is a Map
+        for(var [key, val] of obj) {
+                console.log("Key: " + key, " Value: " + val);
+        }
+}
+</script>
+</body>
+</html>

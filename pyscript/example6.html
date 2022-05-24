@@ -1,0 +1,27 @@
+<!-- https://www.jhanley.com/pyscript-javascript-and-python-interoperability/ -->
+
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <title>Example 6</title>
+  <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+ 
+<body>
+<py-script>
+import js
+ 
+# Call a JS function
+result = js.square(4)
+print(result)
+</py-script>
+ 
+<script type="text/javascript">
+function square(number) {
+        return number * number;
+}
+</script>
+</body>
+</html>

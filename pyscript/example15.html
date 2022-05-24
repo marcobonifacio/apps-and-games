@@ -1,0 +1,48 @@
+<!-- https://www.jhanley.com/pyscript-javascript-callbacks/ -->
+
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <title>Interval Event Proxy</title>
+  <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+  
+<body>
+  <div id="status">Loading page ...</div>
+  <br>
+  <div id="msg"></div>
+  <br>
+ 
+  <py-script>
+ 
+import js
+from js import document
+from pyodide import create_proxy
+ 
+counter = 0
+ 
+document.getElementById("status").innerHTML = 'Python loaded and running ...'
+ 
+def myFunc(param):
+        global counter, interval_id
+ 
+        counter += 1
+        document.getElementById("msg").innerHTML = "Counter = " + str(counter)
+ 
+        # Stop the Interval timer at 15
+        if counter == 15:
+                document.getElementById("status").innerHTML = 'Interval timer stopped'
+                js.clearInterval(interval_id)
+ 
+# Create a proxy for the callback
+proxy = create_proxy(myFunc)
+ 
+# Start an Interval timer for every 1,000 ms
+interval_id = js.setInterval(proxy, 1000, "a parameter");
+ 
+  </py-script>
+ 
+</body>
+</html>
