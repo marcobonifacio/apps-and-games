@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Anagrams</title>
+
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+  </head>
+
+  <body>
+    <h1>Anagrams</h1>
+    <p>Write something in the forms, then press 'Enter' to check the anagram.</p>
+    <label for="original">Original sentence </label>
+    <input type="text" id="original"></input>
+    <label for="anagram">Anagrammed sentence </label>
+    <input type="text" id="anagram"></input>
+    <p>Missing letters:</p>
+    <div id="orig_out"></div>
+    <p>Missing letters:</p>
+    <div id="anag_out"></div>
+    <py-script>  
+  
+import collections
+from js import document
+from pyodide import create_proxy
+
+original = document.getElementById("original")
+anagram = document.getElementById("anagram")
+orig_out = document.getElementById("orig_out")
+anag_out = document.getElementById("anag_out")
+
+def check_anagram(str1, str2):
+    d = (collections.Counter(''.join(sorted(str1.lower().strip()))) - 
+    collections.Counter(''.join(sorted(str2.lower().strip()))))
+    return ''.join(d.elements())
+
+def do_check_original(event):
+    if event.code == "Enter":
+        orig_out.innerHTML = check_anagram(original.value, anagram.value)
+        anag_out.innerHTML = check_anagram(anagram.value, original.value)
+
+def do_check_anagram(event):
+    if event.code == "Enter":
+        orig_out.innerHTML = check_anagram(anagram.value, original.value)
+        anag_out.innerHTML = check_anagram(original.value, anagram.value)
+
+def main():
+    orig_proxy = create_proxy(do_check_original)
+    anag_proxy = create_proxy(do_check_anagram)
+    original.addEventListener("keydown", orig_proxy)
+    anagram.addEventListener("keydown", anag_proxy)
+
+main()
+
+    </py-script>
+  </body>
+</html>
+
