@@ -1,81 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-
-    <title>Anagrams</title>
-
-    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    
-    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  </head>
-
-  <body>
+<head>
+    <title>Anagrams Bootstrap</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://pyscript.net/releases/2023.03.1/pyscript.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">    
+    <script defer src="https://pyscript.net/releases/2023.03.1/pyscript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+</head>
+<body>
     <div class="container">
-      <h1 class="display-2">Anagrams</h1>
-      <p>Write something in the forms, then press 'Enter' to check the anagram.</p>
-      <div class="row">
-        <div class="col">
-          <label for="original">Original sentence </label>
-          <input type="text" class="form-control" id="original"></input>
+        <h1 class="display-2">Anagrams checker</h1>
+        <p>Write something in the forms, missing letters will appear below.</p>
+        <div class="row">
+            <div class="col">
+                <label for="original">Original sentence </label>
+                <input type="text" class="form-control" id="original" py-keyup="do_check()"></input>
+            </div>
+            <div class="col">
+                <label for="anagram">Anagrammed sentence </label>
+                <input type="text" class="form-control" id="anagram" py-keyup="do_check()"></input>
+            </div>
         </div>
-        <div class="col">
-          <label for="anagram">Anagrammed sentence </label>
-          <input type="text" class="form-control" id="anagram"></input>
+        <div class="row">
+            <div class="col">
+                <div class="my-4">Missing letters from original:</div>
+            </div>
+            <div class="col-4">
+                <div class="my-4" id="orig_out"></div>
+            </div>
+            <div class="col">
+                <div class="my-4">Missing letters from anagram:</div>
+            </div>
+            <div class="col-4">
+                <div class="my-4" id="anag_out"></div>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="my-4">Missing letters:</div>
-        </div>
-        <div class="col-4">
-          <div class="my-4" id="orig_out"></div>
-        </div>
-        <div class="col">
-          <div class="my-4">Missing letters:</div>
-        </div>
-         <div class="col-4">
-          <div class="my-4" id="anag_out"></div>
-        </div>
-      </div>
     </div>
-    <py-script>  
-  
-import collections
-from js import document
-from pyodide import create_proxy
-
-original = document.getElementById("original")
-anagram = document.getElementById("anagram")
-orig_out = document.getElementById("orig_out")
-anag_out = document.getElementById("anag_out")
-
-def check_anagram(str1, str2):
-    d = (collections.Counter(''.join(sorted(str1.lower().strip()))) - 
-    collections.Counter(''.join(sorted(str2.lower().strip()))))
-    return ''.join(d.elements())
-
-def do_check_original(event):
-    if event.code == "Enter":
-        orig_out.innerHTML = check_anagram(original.value, anagram.value)
-        anag_out.innerHTML = check_anagram(anagram.value, original.value)
-
-def do_check_anagram(event):
-    if event.code == "Enter":
-        orig_out.innerHTML = check_anagram(anagram.value, original.value)
-        anag_out.innerHTML = check_anagram(original.value, anagram.value)
-
-def main():
-    orig_proxy = create_proxy(do_check_original)
-    anag_proxy = create_proxy(do_check_anagram)
-    original.addEventListener("keydown", orig_proxy)
-    anagram.addEventListener("keydown", anag_proxy)
-
-main()
-
-    </py-script>
-  </body>
+    <py-config src="./pyscript.toml"></py-config>
+    <py-script src="./main.py"></py-script>
+</body>
 </html>
-
