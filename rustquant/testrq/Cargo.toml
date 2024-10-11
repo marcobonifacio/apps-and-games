@@ -1,0 +1,7 @@
+[package]
+name = "testrq"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+RustQuant = "0.2.7"
